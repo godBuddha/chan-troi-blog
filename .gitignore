@@ -1,0 +1,29 @@
+# Dependencies & builds
+node_modules/
+.next/
+out/
+build/
+coverage/
+test-results/
+playwright-report/
+
+# Secrets — KHÔNG commit file .env
+.env
+.env.*
+!.env.example
+test.env
+
+# Dev data
+web/media-dev/
+media/
+media-dev/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.log
+
+# Next.js tự sinh — không commit
+AGENTS.md
+CLAUDE.md

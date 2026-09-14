@@ -1,0 +1,73 @@
+# Blog du lịch cá nhân — toàn bộ hệ thống trong một `docker compose up -d`
+#
+# Dịch vụ:
+#   web      : Next.js + Payload CMS (trang web + trang quản trị /admin)
+#   postgres : cơ sở dữ liệu (bài viết, bình luận, thiết lập — không có gì nằm trong .env cứng)
+#   caddy    : reverse proxy, tự cấp/gia hạn HTTPS theo tên miền
+#   tiles    : (tuỳ chọn, bật bằng --profile map) tileserver-gl phục vụ bản đồ tự host
+#
+# Khởi động lần đầu: xem README.md mục "Khởi chạy".
+
+name: blog-du-lich
+
+services:
+  web:
+    build:
+      context: ./web
+    restart: unless-stopped
+    environment:
+      DATABASE_URI: ${DATABASE_URI:?Thiếu DATABASE_URI trong .env}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?Thiếu PAYLOAD_SECRET trong .env}
+      MEDIA_DIR: /app/media
+      NODE_ENV: production
+    volumes:
+      - media:/app/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: blog
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Thiếu POSTGRES_PASSWORD trong .env}
+      POSTGRES_DB: blog
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blog"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:-}
+      ACME_EMAIL: ${ACME_EMAIL:-}
+      TILES_URL: ${TILES_URL:-http://tiles:8080}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+  tiles:
+    image: maptiler/tileserver-gl:latest
+    restart: unless-stopped
+    command: --file /data/tiles/${TILES_FILE:-map.mbtiles}
+    profiles: ["map"]
+    volumes:
+      - ./data/tiles:/data/tiles:ro
+
+volumes:
+  pgdata:
+  media:
+  caddy_data:
+  caddy_config:

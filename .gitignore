@@ -24,6 +24,8 @@ Thumbs.db
 .idea/
 *.log
 
-# Next.js tự sinh — không commit
-AGENTS.md
-CLAUDE.md
+# Next.js tự sinh trong app/web — không commit
+# (AGENTS.md/CLAUDE.md ở root là cẩm nang dự án cho AI — ĐƯỢC commit)
+app/web/AGENTS.md
+app/web/CLAUDE.md
+app/web/media-ci/

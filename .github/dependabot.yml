@@ -1,0 +1,29 @@
+# Dependabot: tự tạo PR nâng bản vá/bản mới — người dùng chỉ cần bấm merge
+# Bản lớn (Next.js/Payload major) vẫn phải backup DB trước theo docs/van-hanh.md
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /app/web
+    schedule:
+      interval: weekly
+    # Bản major của framework nền: nâng thủ công có backup, không tự động
+    ignore:
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "payload"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@payloadcms/*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: docker
+    directory: /app/web
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

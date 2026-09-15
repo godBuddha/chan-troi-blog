@@ -41,6 +41,7 @@ Mở **http://localhost/admin** → tạo user đầu tiên → cấu hình mọ
 | [`app/.env.example`](app/.env.example) | File cấu hình tối thiểu (3 biến), có chú thích từng dòng |
 | [`design-demos/`](design-demos/) | Mockup thiết kế HTML + ảnh (phương án 2 — tạp chí, phương án 3 — cinematic đã chọn) |
 | [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật |
+| [`AGENTS.md`](AGENTS.md) | Cẩm nang cho trợ lý AI khi sửa repo này (quy ước, các bẫy kỹ thuật đã gặp) — còn **CI** kiểm tra tự động mỗi lần đẩy code (GitHub Actions) và **Dependabot** tự tạo PR nâng bản vá |
 
 ## Màn hình trang quản trị (tiếng Việt, chụp từ hệ thống chạy thật)
 

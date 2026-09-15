@@ -37,9 +37,10 @@ Mở **http://localhost/admin** → tạo user đầu tiên → cấu hình mọ
 |---|---|
 | [`app/README.md`](app/README.md) | **Hướng dẫn chi tiết từng bước** (tiếng Việt): cài Docker, khởi chạy, tạo tài khoản, bảng thiết lập quản trị, nén video hero, bản đồ tự host, VPS + tên miền + HTTPS, backup, xử lý sự cố |
 | [`docs/van-hanh.md`](docs/van-hanh.md) | **Sổ tay vận hành**: cập nhật (update), sao lưu (backup) tự động hằng ngày, khôi phục (restore) trên máy mới — ai cũng làm được |
+| [`docs/man-hinh-quan-tri.md`](docs/man-hinh-quan-tri.md) | **Bộ 14 màn hình trang quản trị** kèm mô tả từng màn — xem trước giao diện trước khi chạy |
 | [`app/.env.example`](app/.env.example) | File cấu hình tối thiểu (3 biến), có chú thích từng dòng |
 | [`design-demos/`](design-demos/) | Mockup thiết kế HTML + ảnh (phương án 2 — tạp chí, phương án 3 — cinematic đã chọn) |
-| [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật + toàn bộ màn hình quản trị |
+| [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật |
 
 ## Màn hình trang quản trị (tiếng Việt, chụp từ hệ thống chạy thật)
 

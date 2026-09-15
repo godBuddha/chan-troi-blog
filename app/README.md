@@ -89,21 +89,26 @@ Trang chủ dùng bản đồ demo online tới khi bạn nạp dữ liệu tile
    ```
 4. `docker compose up -d` lại → Caddy **tự cấp HTTPS** (Let's Encrypt), không cần thao tác gì thêm.
 
-## 8. Backup định kỳ (quan trọng!)
+## 8. Backup / Update / Restore
+
+**Chi tiết đầy đủ (kể cả khôi phục trên máy mới, backup tự động hằng ngày): xem [`docs/van-hanh.md`](../docs/van-hanh.md).**
+
+Tóm tắt nhanh:
 
 ```bash
 mkdir -p backup
-
-# 1) Database (bài viết, bình luận, thiết lập)
-docker compose exec postgres pg_dump -U blog blog > backup/db-$(date +%F).sql
-
-# 2) Ảnh & video (nằm trong Docker volume "media")
+# Backup database + thiết lập:
+docker compose exec -T postgres pg_dump -U blog blog > backup/db-$(date +%F).sql
+# Backup ảnh & video:
 docker run --rm -v blog-du-lich_media:/data -v $(pwd)/backup:/backup alpine \
   tar czf /backup/media-$(date +%F).tgz -C /data .
-
-# Hằng ngày tự động: crontab -e và thêm dòng (chạy 3h sáng):
-# 0 3 * * * cd /duong-dan/toi/app && docker compose exec postgres pg_dump -U blog blog > backup/db-$(date +\%F).sql
+# Khôi phục database từ dump:
+cat backup/db-2026-09-15.sql | docker compose exec -T postgres psql -U blog -d blog
+# Cập nhật khi có code mới:
+git pull && docker compose up -d --build
 ```
+
+Đủ 3 thứ để khôi phục toàn bộ trên máy mới: **file `.sql` + file media `.tgz` + file `.env`**.
 
 ## 9. Cập nhật sau này
 

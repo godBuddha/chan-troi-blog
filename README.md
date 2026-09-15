@@ -36,9 +36,23 @@ Mở **http://localhost/admin** → tạo user đầu tiên → cấu hình mọ
 | File | Nội dung |
 |---|---|
 | [`app/README.md`](app/README.md) | **Hướng dẫn chi tiết từng bước** (tiếng Việt): cài Docker, khởi chạy, tạo tài khoản, bảng thiết lập quản trị, nén video hero, bản đồ tự host, VPS + tên miền + HTTPS, backup, xử lý sự cố |
+| [`docs/van-hanh.md`](docs/van-hanh.md) | **Sổ tay vận hành**: cập nhật (update), sao lưu (backup) tự động hằng ngày, khôi phục (restore) trên máy mới — ai cũng làm được |
 | [`app/.env.example`](app/.env.example) | File cấu hình tối thiểu (3 biến), có chú thích từng dòng |
 | [`design-demos/`](design-demos/) | Mockup thiết kế HTML + ảnh (phương án 2 — tạp chí, phương án 3 — cinematic đã chọn) |
-| [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật |
+| [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật + toàn bộ màn hình quản trị |
+
+## Màn hình trang quản trị (tiếng Việt, chụp từ hệ thống chạy thật)
+
+| | |
+|---|---|
+| ![Bảng điều khiển](docs/screenshots/admin-dashboard.png) | **Bảng điều khiển** — 6 mục: Posts, Locations, Comments, Media, Tags, Users + 2 mục cấu hình chung (Thiết lập website, Thiết lập AI) |
+| ![Soạn bài viết](docs/screenshots/admin-post-edit.png) | **Soạn bài viết** — tiêu đề, tóm tắt, nội dung, ảnh bìa, video mở đầu, địa điểm gắn bài, ngày đăng, nút Publish / Lưu nháp |
+| ![Hàng chờ bình luận](docs/screenshots/admin-comment-list.png) | **Hàng chờ bình luận** — AI đã chấm từng bình luận: đề xuất + độ tin cậy hiện ngay trên bảng; lọc/tìm theo trạng thái |
+| ![Chi tiết bình luận](docs/screenshots/admin-comment-edit.png) | **Chi tiết bình luận** — xem/sửa nội dung, trả lời, đổi trạng thái (chờ duyệt/đã duyệt/từ chối/spam), nhận xét của AI ở mục gập riêng |
+| ![Địa điểm](docs/screenshots/admin-location-edit.png) | **Địa điểm** — tên + tọa độ + loại điểm, mô tả; điểm này sẽ xuất hiện trên bản đồ |
+| ![Thiết lập website](docs/screenshots/admin-settings.png) | **Thiết lập website** — tên blog, video hero + poster (3 tab: Màn hình mở trang / Bản đồ / Giới thiệu & chân trang) |
+| ![Thiết lập AI](docs/screenshots/admin-ai-config.png) | **Thiết lập AI** — provider, API key, model, ngưỡng tin cậy **riêng cho từng loại** (duyệt/từ chối/spam), prompt kiểm duyệt có thể sửa |
+| ![Danh sách bài viết](docs/screenshots/admin-post-list.png) | **Danh sách bài viết** — trạng thái từng bài (đã xuất bản / nháp), vào sửa hoặc tạo mới |
 
 ## Công nghệ
 

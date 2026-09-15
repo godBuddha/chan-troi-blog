@@ -26,10 +26,11 @@ Blog du lịch cá nhân "Chân Trời", tự host 100% bằng Docker. Người 
 app/web/src/
 ├── payload.config.ts      # khai báo adapter + jobs (cron * * * * * cho đăng bài lịch)
 ├── collections/           # Posts, Locations, Comments, Media, Tags, Users
-├── globals/               # SiteSettings, AIConfig — mọi thiết lập qua UI
+├── globals/               # SiteSettings (có tab SEO), AIConfig, EmailConfig — mọi thiết lập qua UI
 ├── lib/ai.ts              # gọi AI OpenAI-compatible (OpenRouter mặc định)
 ├── components/            # MapClient, CommentForm…
 └── app/(frontend)/        # giao diện cinematic + trang bài viết
+                            # + feed.xml/route.ts (RSS); sitemap.ts + robots.ts ở app/ gốc
 ```
 
 Hook duyệt bình luận AI nằm trong `collections/Comments.ts` (beforeChange): AI trả verdict + confidence, so với ngưỡng trong AIConfig (`thresholds` từng loại) → tự duyệt/từ chối nếu đủ chắc, không thì `pending`.

@@ -44,7 +44,8 @@ Bảng bên trái sau khi đăng nhập:
 
 | Mục | Bạn làm gì |
 |---|---|
-| **Thiết lập website** | Tên blog, dòng phụ, **video hero** (MP4 tự chạy hiện dần), ảnh poster, link mạng xã hội, lời giới thiệu, đường dẫn style bản đồ |
+| **Thiết lập website** | Tên blog, dòng phụ, **video hero** (MP4 tự chạy hiện dần), ảnh poster, link mạng xã hội, lời giới thiệu, đường dẫn style bản đồ. Tab **SEO & chia sẻ**: địa chỉ website (sinh sitemap + RSS + ảnh xem trước khi gửi link qua Zalo/Facebook) và ảnh xem trước mặc định |
+| **Thiết lập email** | Bật **email thông báo khi có bình luận mới**: máy chủ SMTP (Gmail/Resend/Mailgun…), mật khẩu ứng dụng, địa chỉ nhận. Gmail: dùng App Password tại myaccount.google.com/apppasswords |
 | **Thiết lập AI** | Chọn provider (mặc định **OpenRouter**), dán **API key**, model, bật/tắt tự duyệt, ngưỡng tin cậy, chỉnh prompt kiểm duyệt |
 | **Posts** | Viết bài: tiêu đề, slug, ảnh bìa, **video mở đầu**, nội dung, **địa điểm** (chọn từ Locations), thẻ. Bấm **Publish** đăng ngay, hoặc **Schedule publish** đặt giờ tự đăng |
 | **Locations** | Địa điểm cho bản đồ: tên + tọa độ (mở Google Maps, chuột phải → copy "21.02, 105.83"), loại điểm, mô tả, ảnh |

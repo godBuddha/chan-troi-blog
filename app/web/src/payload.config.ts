@@ -15,6 +15,7 @@ import { Comments } from './collections/Comments'
 import { Tags } from './collections/Tags'
 import { SiteSettings } from './globals/SiteSettings'
 import { AIConfig } from './globals/AIConfig'
+import { EmailConfig } from './globals/EmailConfig'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Posts, Locations, Comments, Users, Media, Tags],
-  globals: [SiteSettings, AIConfig],
+  globals: [SiteSettings, AIConfig, EmailConfig],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -3,7 +3,7 @@ import configPromise from '@payload-config'
 import { Be_Vietnam_Pro, Newsreader } from 'next/font/google'
 
 import './styles.css'
-import { getSiteSettings } from '@/lib/site'
+import { getSiteSettings, getSiteUrl, mediaUrl } from '@/lib/site'
 
 const sans = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
@@ -22,12 +22,35 @@ const serif = Newsreader({
 export async function generateMetadata() {
   const payload = await getPayload({ config: configPromise })
   const settings = await getSiteSettings(payload)
+  const siteName = settings?.siteName ?? 'Chân Trời'
+  const siteUrl = getSiteUrl(settings)
+  const ogImage = mediaUrl(settings?.ogImage as { url?: string | null; filename?: string | null } | null)
+
   return {
+    metadataBase: new URL(siteUrl),
     title: {
-      default: settings?.siteName ?? 'Chân Trời',
-      template: `%s · ${settings?.siteName ?? 'Chân Trời'}`,
+      default: siteName,
+      template: `%s · ${siteName}`,
     },
     description: settings?.tagline ?? 'Nhật ký hành trình',
+    alternates: {
+      canonical: '/',
+      types: { 'application/rss+xml': `${siteUrl}/feed.xml` },
+    },
+    openGraph: {
+      type: 'website',
+      siteName,
+      title: siteName,
+      description: settings?.tagline ?? 'Nhật ký hành trình',
+      url: siteUrl,
+      images: ogImage ? [{ url: ogImage }] : [],
+    },
+    twitter: {
+      card: ogImage ? 'summary_large_image' : 'summary',
+      title: siteName,
+      description: settings?.tagline ?? 'Nhật ký hành trình',
+      images: ogImage ? [ogImage] : [],
+    },
   }
 }
 

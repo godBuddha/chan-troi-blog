@@ -56,6 +56,30 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
+          label: 'SEO & chia sẻ',
+          fields: [
+            {
+              name: 'siteUrl',
+              type: 'text',
+              label: 'Địa chỉ website công khai',
+              admin: {
+                description:
+                  'Địa chỉ đầy đủ của blog, VD: https://blog.example.com (không có dấu / ở cuối). Dùng để tạo sitemap, RSS và ảnh xem trước khi gửi link qua Zalo/Facebook. Bỏ trống khi chạy tại localhost.',
+              },
+            },
+            {
+              name: 'ogImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Ảnh xem trước mặc định (khi chia sẻ link)',
+              admin: {
+                description:
+                  'Hiện khi gửi link trang chủ qua Zalo/Facebook/Messenger. Mỗi bài viết tự dùng ảnh bìa của bài đó; thiếu ảnh bìa thì dùng ảnh này. Nên ngang 1200×630.',
+              },
+            },
+          ],
+        },
+        {
           label: 'Giới thiệu & chân trang',
           fields: [
             {

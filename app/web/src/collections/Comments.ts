@@ -10,6 +10,47 @@ const publicRead = {
   },
 } as const
 
+// Thư thông báo bình luận mới cho chủ blog — gửi nền, lỗi chỉ ghi log,
+// không bao giờ làm hỏng việc khách gửi bình luận.
+async function notifyNewComment(req: PayloadRequest, doc: { id: number; name?: string; body?: string; post?: unknown }): Promise<void> {
+  try {
+    const cfg = await req.payload.findGlobal({ slug: 'email-config' })
+    if (!cfg?.enabled || !cfg.smtpHost || !cfg.smtpUser || !cfg.smtpPass || !cfg.notifyEmail) return
+
+    const nodemailer = (await import('nodemailer')).default
+    const transport = nodemailer.createTransport({
+      host: cfg.smtpHost,
+      port: cfg.smtpPort ?? 465,
+      secure: (cfg.smtpPort ?? 465) === 465,
+      auth: { user: cfg.smtpUser, pass: cfg.smtpPass },
+    })
+
+    const postId = typeof doc.post === 'object' ? (doc.post as { id?: number })?.id : doc.post
+    const post = postId ? await req.payload.findByID({ collection: 'posts', id: postId as number, depth: 0 }) : null
+    const settings = await req.payload.findGlobal({ slug: 'site-settings' })
+    const base = (settings?.siteUrl?.trim().replace(/\/+$/, '') || '') || 'http://localhost'
+
+    const body = doc.body ?? ''
+    const preview = body.length > 300 ? `${body.slice(0, 300)}…` : body
+    await transport.sendMail({
+      from: cfg.fromAddress || cfg.smtpUser,
+      to: cfg.notifyEmail,
+      subject: `Bình luận mới từ ${doc.name ?? 'khách'}${post ? ` — ${post.title}` : ''}`,
+      text: [
+        `${doc.name ?? '(không tên)'} vừa bình luận${post ? ` trong bài "${post.title}"` : ''}:`,
+        '',
+        preview,
+        '',
+        `Trạng thái: hàng chờ / AI đã chấm — xem và duyệt tại:`,
+        `${base}/admin/collections/comments/${doc.id}`,
+      ].join('\n'),
+    })
+    req.payload.logger.info(`Đã gửi email thông báo bình luận #${doc.id}`)
+  } catch (err) {
+    req.payload.logger.error({ err, msg: 'Gửi email thông báo thất bại (bình luận vẫn được lưu)' })
+  }
+}
+
 export const Comments: CollectionConfig = {
   slug: 'comments',
   admin: {
@@ -97,6 +138,12 @@ export const Comments: CollectionConfig = {
     },
   ],
   hooks: {
+    afterChange: [
+      // Bình luận mới đã lưu xong → nhắc chủ blog bằng email (nếu bật trong Thiết lập email)
+      ({ doc, req, operation }) => {
+        if (operation === 'create') void notifyNewComment(req, doc)
+      },
+    ],
     beforeChange: [
       // Khi có bình luận mới: gọi AI kiểm duyệt (nếu đã bật trong Cài đặt) rồi đặt trạng thái.
       async ({ data, req, operation }) => {

@@ -18,3 +18,10 @@ export async function getSiteSettings(payload: Payload): Promise<SiteSettingsTyp
     return null
   }
 }
+
+// Địa chỉ gốc của blog (không dấu / ở cuối) — dùng cho sitemap, RSS, OG URL.
+// Lấy từ Thiết lập website → SEO & chia sẻ; chạy tại localhost thì fallback.
+export function getSiteUrl(settings: SiteSettingsType | null | undefined): string {
+  const raw = settings?.siteUrl?.trim().replace(/\/+$/, '')
+  return raw || 'http://localhost'
+}

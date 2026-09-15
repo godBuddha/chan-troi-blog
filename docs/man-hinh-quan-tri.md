@@ -65,11 +65,14 @@
 
 ### Thiết lập website
 ![Thiết lập website](screenshots/admin-settings.png)
-*Tab **Màn hình mở trang**: video hero (tự chạy hiện dần) + ảnh poster. Tab còn lại: **Bản đồ** (đường dẫn style) và **Giới thiệu & chân trang** (lời giới thiệu, avatar, mạng xã hội). Tên blog cũng đặt ở đây.*
+*Tab **Màn hình mở trang**: video hero (tự chạy hiện dần) + ảnh poster. Tab **Bản đồ**: đường dẫn style. Tab **SEO & chia sẻ**: địa chỉ website (tự sinh sitemap + RSS + ảnh xem trước khi gửi link qua Zalo/Facebook) và ảnh xem trước mặc định. Tab **Giới thiệu & chân trang**: lời giới thiệu, avatar, mạng xã hội. Tên blog cũng đặt ở đây.*
 
 ### Thiết lập AI
 ![Thiết lập AI](screenshots/admin-ai-config.png)
 *Toàn bộ AI cấu hình qua UI: **Provider** (OpenRouter mặc định), API key, model, bật/tắt tự áp dụng, **bảng ngưỡng tin cậy riêng cho từng loại** (Duyệt ≥80% · Từ chối ≥85% · Spam ≥85% — chỉnh từng dòng), và **prompt kiểm duyệt** sửa được theo ý bạn.*
+
+### Thiết lập email
+*Mục **Thiết lập email** bên trái: bật "Gửi email khi có bình luận mới", điền máy chủ SMTP (VD smtp.gmail.com), cổng, tên đăng nhập + **mật khẩu ứng dụng**, địa chỉ gửi và email nhận thông báo. Gmail dùng App Password (myaccount.google.com/apppasswords), không dùng mật khẩu đăng nhập. Có bình luận mới là nhận thư ngay, kèm link vào admin để duyệt.*
 
 ---
 

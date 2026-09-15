@@ -6,7 +6,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { CommentForm } from '@/components/CommentForm'
 import { MapClient, type MapMarker } from '@/components/MapClient'
-import { getSiteSettings, mediaUrl } from '@/lib/site'
+import { getSiteSettings, getSiteUrl, mediaUrl } from '@/lib/site'
 import type { Comment, Location, Media, Post } from '@/payload-types'
 
 // Nội dung lấy từ DB lúc request — không prerender lúc build (DB chưa có bảng khi build).
@@ -15,8 +15,36 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const payload = await getPayload({ config: configPromise })
-  const post = (await payload.find({ collection: 'posts', where: { slug: { equals: slug } }, limit: 1 })).docs[0]
-  return { title: post?.title ?? 'Không tìm thấy' }
+  const settings = await getSiteSettings(payload)
+  const post = (await payload.find({ collection: 'posts', where: { slug: { equals: slug } }, limit: 1, depth: 1 }))
+    .docs[0] as Post | undefined
+  if (!post) return { title: 'Không tìm thấy' }
+
+  const base = getSiteUrl(settings)
+  const cover = post.cover as Media | null
+  const ogFallback = mediaUrl(settings?.ogImage as { url?: string | null; filename?: string | null } | null)
+  const image = mediaUrl(cover) ?? ogFallback
+
+  return {
+    title: post.title,
+    description: post.excerpt ?? undefined,
+    alternates: { canonical: `/posts/${post.slug}` },
+    openGraph: {
+      type: 'article',
+      siteName: settings?.siteName ?? 'Chân Trời',
+      title: post.title,
+      description: post.excerpt ?? undefined,
+      url: `${base}/posts/${post.slug}`,
+      publishedTime: post.publishedAt ?? undefined,
+      images: image ? [{ url: image }] : [],
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description: post.excerpt ?? undefined,
+      images: image ? [image] : [],
+    },
+  }
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {

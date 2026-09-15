@@ -18,6 +18,8 @@
 - **Bản đồ số** gắn với bài viết: mỗi bài chọn địa điểm (tên + tọa độ) → điểm hiện trên bản đồ, bấm vào là tới bài viết. Chạy với bản đồ online hoặc **tự host 100% tile** (file `.mbtiles`).
 - **AI duyệt bình luận** qua API provider (mặc định **OpenRouter**, hỗ trợ OpenAI/Gemini/Anthropic/tùy chỉnh): AI đọc, đề xuất + lý do + độ tin cậy, **ngưỡng tin cậy đặt riêng cho từng loại** (duyệt / từ chối / spam) — đủ chắc thì tự áp dụng, không chắc thì chờ bạn duyệt. Bạn vẫn xem/sửa/trả lời/xóa mọi bình luận trong trang quản trị.
 - **Đăng bài theo lịch**: viết trước, đặt giờ, hệ thống tự đăng (hàng đợi job của Payload, quét mỗi phút).
+- **Sẵn sàng cho công cụ tìm kiếm & chia sẻ**: sitemap + robots.txt tự sinh, RSS feed (`/feed.xml`), thẻ Open Graph/Twitter cho từng bài — gửi link qua Zalo/Facebook hiện đúng ảnh bìa.
+- **Email thông báo bình luận mới**: SMTP cấu hình trong trang quản trị (Gmail/Resend/Mailgun…), có bình luận là nhận thư, không cần mở admin kiểm tra.
 - **Mọi thiết lập qua trang quản trị** — không hardcode vào `.env`: tên blog, video hero, bản đồ, AI key, prompt kiểm duyệt… File `.env` chỉ còn đúng 3 biến khởi tạo.
 - **Tự host hoàn toàn** bằng Docker: web (Next.js + Payload CMS), PostgreSQL, Caddy (HTTPS tự động), tile server bản đồ (tùy chọn).
 

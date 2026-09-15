@@ -100,10 +100,12 @@ export interface Config {
   globals: {
     'site-settings': SiteSetting;
     'ai-config': AiConfig;
+    'email-config': EmailConfig;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'ai-config': AiConfigSelect<false> | AiConfigSelect<true>;
+    'email-config': EmailConfigSelect<false> | EmailConfigSelect<true>;
   };
   locale: null;
   widgets: {
@@ -744,6 +746,14 @@ export interface SiteSetting {
    * Tự host: https://ten-mien/tiles/styles/basic/style.json (chạy tại máy: http://localhost/tiles/styles/basic/style.json). Tên style có thể khác tùy file .mbtiles — mở http://localhost/tiles/ để xem danh sách style có sẵn. Chưa nạp tile thì để trống, dùng bản demo online.
    */
   mapStyleUrl?: string | null;
+  /**
+   * Địa chỉ đầy đủ của blog, VD: https://blog.example.com (không có dấu / ở cuối). Dùng để tạo sitemap, RSS và ảnh xem trước khi gửi link qua Zalo/Facebook. Bỏ trống khi chạy tại localhost.
+   */
+  siteUrl?: string | null;
+  /**
+   * Hiện khi gửi link trang chủ qua Zalo/Facebook/Messenger. Mỗi bài viết tự dùng ảnh bìa của bài đó; thiếu ảnh bìa thì dùng ảnh này. Nên ngang 1200×630.
+   */
+  ogImage?: (number | null) | Media;
   aboutTitle?: string | null;
   aboutText?: string | null;
   avatar?: (number | null) | Media;
@@ -801,6 +811,34 @@ export interface AiConfig {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-config".
+ */
+export interface EmailConfig {
+  id: number;
+  enabled?: boolean | null;
+  /**
+   * VD: smtp.gmail.com (Gmail), smtp.resend.com (Resend), smtp.mailgun.org (Mailgun).
+   */
+  smtpHost?: string | null;
+  smtpPort?: number | null;
+  smtpUser?: string | null;
+  /**
+   * Gmail: dùng "Mật khẩu ứng dụng" (App Password) chứ không phải mật khẩu đăng nhập — tạo tại myaccount.google.com/apppasswords.
+   */
+  smtpPass?: string | null;
+  /**
+   * Thường trùng tên đăng nhập SMTP.
+   */
+  fromAddress?: string | null;
+  /**
+   * Email của bạn — nơi nhận thông báo bình luận mới.
+   */
+  notifyEmail?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -809,6 +847,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   heroVideo?: T;
   heroPoster?: T;
   mapStyleUrl?: T;
+  siteUrl?: T;
+  ogImage?: T;
   aboutTitle?: T;
   aboutText?: T;
   avatar?: T;
@@ -843,6 +883,22 @@ export interface AiConfigSelect<T extends boolean = true> {
         id?: T;
       };
   systemPrompt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-config_select".
+ */
+export interface EmailConfigSelect<T extends boolean = true> {
+  enabled?: T;
+  smtpHost?: T;
+  smtpPort?: T;
+  smtpUser?: T;
+  smtpPass?: T;
+  fromAddress?: T;
+  notifyEmail?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -1,7 +1,7 @@
 # Một block duy nhất:
-#  - .env không đặt SITE_DOMAIN  → chạy ở http://localhost
+#  - .env không đặt SITE_DOMAIN  → chạy ở http://localhost (HTTP thuần, không cảnh báo chứng chỉ)
 #  - .env đặt SITE_DOMAIN=blog.example.com → Caddy tự cấp/gia hạn HTTPS cho domain đó
-{$SITE_DOMAIN:localhost} {
+{$SITE_DOMAIN::80} {
 	# Bản đồ tự host (service "tiles", bật bằng --profile map):
 	# admin → Thiết lập website → Bản đồ, điền: https://ten-mien/tiles/styles/osm-bright/style.json
 	handle_path /tiles/* {

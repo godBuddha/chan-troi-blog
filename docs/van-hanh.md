@@ -114,16 +114,23 @@ rclone copy app/backup remote:backup-chan-troi
 ```bash
 cd app
 
-# 1) Database — ghi đè bằng dump
+# 1) Xóa sạch dữ liệu hiện tại trong database (thiết lập + bài + bình luận trở về trắng)
+#    Bước này BẮT BUỘC: file dump .sql không chứa lệnh xóa — nếu không xóa trước
+#    sẽ bị lỗi "relation already exists"
+docker compose exec -T postgres psql -U blog -d blog -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'
+
+# 2) Nạp lại database từ dump
 cat backup/db-2026-09-15.sql | docker compose exec -T postgres psql -U blog -d blog
 
-# 2) Ảnh & video
+# 3) Ảnh & video
 docker run --rm -v blog-du-lich_media:/data -v $(pwd)/backup:/backup alpine \
   sh -c "cd /data && rm -rf ./* && tar xzf /backup/media-2026-09-15.tgz"
 
-# 3) Khởi động lại để web nạp lại dữ liệu
+# 4) Khởi động lại để web nạp lại dữ liệu
 docker compose restart web
 ```
+
+> **Cảnh báo:** bước 1 xóa toàn bộ dữ liệu hiện tại trong database (không đụng ảnh/video). Chỉ chạy khi bạn thật sự muốn quay về trạng thái của bản backup.
 
 ### 3b. Khôi phục toàn bộ trên một máy MỚI (VPS bị mất, chuyển nhà cung cấp)
 
@@ -137,10 +144,12 @@ cd chan-troi-blog/app
 # 3) Trả lại file .env từ backup (điền mật khẩu cũ)
 cp /duong-dan/backup/env-2026-09-15 .env
 
-# 4) Bật hệ thống (database trống, schema tự tạo)
+# 4) Bật hệ thống (chỉ để chắc chắn postgres chạy được)
 docker compose up -d --build
 
-# 5) Nạp dữ liệu từ dump
+# 5) Xóa schema khởi tạo mặc định rồi nạp dữ liệu từ dump
+#    (không xóa trước sẽ bị lỗi "relation already exists")
+docker compose exec -T postgres psql -U blog -d blog -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'
 cat /duong-dan/backup/db-2026-09-15.sql | docker compose exec -T postgres psql -U blog -d blog
 
 # 6) Nạp ảnh & video

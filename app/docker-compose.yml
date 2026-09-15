@@ -50,7 +50,6 @@ services:
     environment:
       SITE_DOMAIN: ${SITE_DOMAIN:-}
       ACME_EMAIL: ${ACME_EMAIL:-}
-      TILES_URL: ${TILES_URL:-http://tiles:8080}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

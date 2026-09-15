@@ -64,7 +64,9 @@ ffmpeg -i video.goc.mp4 -vcodec libx264 -crf 23 -preset medium -vf "scale=-2:108
 
 Trang chủ dùng bản đồ demo online tới khi bạn nạp dữ liệu tile riêng:
 
-1. Tải dữ liệu tile Việt Nam/thế giới dạng `.mbtiles` (từ OpenMapTiles/data.gov hoặc tự export với `tilemaker`)
+1. Tải dữ liệu bản đồ dạng `.mbtiles` — nguồn phổ biến:
+   - [Geofabrik](https://download.geofabrik.de/) (bản đồ OSM chia theo quốc gia/khu vực, miễn phí)
+   - Dữ liệu OSM thô + công cụ [`tilemaker`](https://github.com/systemed/tilemaker) nếu muốn tự tạo
 2. Chép file vào `app/data/tiles/` và đặt tên trong `.env`:
    ```
    TILES_FILE=map.mbtiles
@@ -102,7 +104,8 @@ docker compose exec -T postgres pg_dump -U blog blog > backup/db-$(date +%F).sql
 # Backup ảnh & video:
 docker run --rm -v blog-du-lich_media:/data -v $(pwd)/backup:/backup alpine \
   tar czf /backup/media-$(date +%F).tgz -C /data .
-# Khôi phục database từ dump:
+# Khôi phục database từ dump (xóa dữ liệu hiện tại rồi nạp bản backup):
+docker compose exec -T postgres psql -U blog -d blog -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'
 cat backup/db-2026-09-15.sql | docker compose exec -T postgres psql -U blog -d blog
 # Cập nhật khi có code mới:
 git pull && docker compose up -d --build
@@ -140,8 +143,9 @@ app/
 
 | Triệu chứng | Xử lý |
 |---|---|
-| `/admin` báo lỗi tạo user đầu | Xem `docker compose logs web` — thường do DATABASE_URI sai mật khẩu |
+| `/admin` báo lỗi tạo user đầu | Xem `docker compose logs web` — thường do `DATABASE_URI` sai mật khẩu (mật khẩu phải giống nhau ở 2 dòng `POSTGRES_PASSWORD` và `DATABASE_URI`) |
+| Mở http://localhost bị cảnh báo chứng chỉ | Đã sửa ở Caddyfile: không đặt `SITE_DOMAIN` thì hệ thống chạy HTTP thuần. Nếu bản cũ vẫn cảnh báo, `docker compose up -d --build` lại |
 | Bình luận không tự duyệt | Kiểm tra **Thiết lập AI**: key đúng chưa, model còn hoạt động không (xem log web khi gửi bình luận thử) |
 | Bản đồ trắng | Style URL sai — thử lại `https://demotiles.maplibre.org/style.json` |
 | Video không tự chạy | Video phải tắt tiếng (đã `-an` khi nén) và định dạng MP4/H.264 |
-| Quên mật khẩu admin | `docker compose exec web node -e "..."` — hoặc đơn giản: tạo user mới qua `/admin` |
+| Quên mật khẩu admin | Xóa tài khoản để hiện lại màn "Create First User" (bài viết, bình luận **giữ nguyên**): `docker compose exec postgres psql -U blog -d blog -c 'DELETE FROM users;'` → mở lại `/admin` tạo tài khoản mới |

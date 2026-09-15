@@ -9,7 +9,7 @@
 2. [Viết bài & địa điểm](#viết-bài--địa-điểm)
 3. [Bình luận & AI](#bình-luận--ai)
 4. [Thiết lập](#thiết-lập)
-5. [Media, người dùng, thẻ](#medianguười-dùng-thẻ)
+5. [Media, người dùng, thẻ](#media-người-dùng-thẻ)
 
 ---
 
@@ -37,7 +37,7 @@
 
 ### Bài nháp (chưa đăng)
 ![Bài nháp](screenshots/admin-post-draft.png)
-* draft bài chưa đăng hiện "Nháp" — không ai thấy ngoài bạn. Bấm "Xuất bản" để đăng, hoặc đặt giờ để hệ thống tự đăng.*
+*Bài nháp chưa đăng hiện trạng thái "Nháp" — không ai thấy ngoài bạn. Bấm "Xuất bản" để đăng, hoặc đặt giờ để hệ thống tự đăng.*
 
 ### Địa điểm (Locations)
 ![Địa điểm](screenshots/admin-location-edit.png)

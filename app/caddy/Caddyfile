@@ -3,7 +3,8 @@
 #  - .env đặt SITE_DOMAIN=blog.example.com → Caddy tự cấp/gia hạn HTTPS cho domain đó
 {$SITE_DOMAIN::80} {
 	# Bản đồ tự host (service "tiles", bật bằng --profile map):
-	# admin → Thiết lập website → Bản đồ, điền: https://ten-mien/tiles/styles/osm-bright/style.json
+	# admin → Thiết lập website → Bản đồ, điền: https://ten-mien/tiles/styles/basic/style.json
+	# (tên style có thể khác tùy file .mbtiles — mở https://ten-mien/tiles/ để xem danh sách)
 	handle_path /tiles/* {
 		reverse_proxy tiles:8080
 	}

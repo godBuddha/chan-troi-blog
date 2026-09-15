@@ -73,10 +73,9 @@ Trang chủ dùng bản đồ demo online tới khi bạn nạp dữ liệu tile
    ```
 3. Bật: `docker compose --profile map up -d`
 4. Trong admin **Thiết lập website → Bản đồ**, điền style URL:
-   - Có tên miền: `https://ten-mien-cua-ban/tiles/styles/osm-bright/style.json`
-   - Chạy tại localhost: `http://localhost/tiles/styles/osm-bright/style.json`
-
-   (Caddy đã dựng sẵn route `/tiles/*` → service bản đồ, xem `caddy/Caddyfile`.)
+   - Có tên miền: `https://ten-mien-cua-ban/tiles/styles/basic/style.json`
+   - Chạy tại localhost: `http://localhost/tiles/styles/basic/style.json`
+   - Tên style có thể khác tùy file `.mbtiles` — mở `http://localhost/tiles/` trên trình duyệt để xem danh sách style có sẵn.
 
 > Không nạp tile cũng vẫn chạy tốt với style demo — chỉ là chưa "self-host 100% bản đồ".
 

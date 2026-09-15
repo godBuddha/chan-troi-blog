@@ -50,7 +50,7 @@ export const SiteSettings: GlobalConfig = {
               label: 'Đường dẫn style bản đồ (MapLibre)',
               admin: {
                 description:
-                  'Tự host: http://localhost:8080/styles/basic/style.json (qua Caddy: /map/styles/basic/style.json). Mặc định dùng bản demo online cho tới khi bạn nạp tile vào data/tiles/.',
+                  'Tự host: https://ten-mien/tiles/styles/basic/style.json (chạy tại máy: http://localhost/tiles/styles/basic/style.json). Tên style có thể khác tùy file .mbtiles — mở http://localhost/tiles/ để xem danh sách style có sẵn. Chưa nạp tile thì để trống, dùng bản demo online.',
               },
             },
           ],

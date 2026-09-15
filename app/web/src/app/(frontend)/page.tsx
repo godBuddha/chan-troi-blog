@@ -7,6 +7,10 @@ import { MapClient, type MapMarker } from '../../components/MapClient'
 import { mediaUrl, getSiteSettings } from '../../lib/site'
 import type { Post, Location, Media } from '@/payload-types'
 
+// Nội dung lấy từ DB lúc request (bài/thiết lập đổi trong admin là hiện ngay).
+// Bắt buộc dynamic — nếu không Next sẽ prerender lúc build và cần DB có sẵn bảng.
+export const dynamic = 'force-dynamic'
+
 // Trang chủ cinematic:
 //  1. Hero (video hiện dần + tên blog)
 //  2. Manifesto nền tối

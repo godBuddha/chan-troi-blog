@@ -9,6 +9,9 @@ import { MapClient, type MapMarker } from '@/components/MapClient'
 import { getSiteSettings, mediaUrl } from '@/lib/site'
 import type { Comment, Location, Media, Post } from '@/payload-types'
 
+// Nội dung lấy từ DB lúc request — không prerender lúc build (DB chưa có bảng khi build).
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const payload = await getPayload({ config: configPromise })

@@ -32,7 +32,7 @@ jobs:
       MEDIA_DIR: ./media-ci
       NEXT_TELEMETRY_DISABLED: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -44,7 +44,7 @@ jobs:
   infra-config:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Caddyfile phải render được ở cả 2 chế độ: không domain (HTTP :80) và có domain (HTTPS)
       - name: Validate Caddyfile (không domain)
         run: docker run --rm -v "$PWD/app/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile

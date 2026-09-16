@@ -39,7 +39,7 @@ Mở **http://localhost/admin** → tạo user đầu tiên → cấu hình mọ
 |---|---|
 | [`app/README.md`](app/README.md) | **Hướng dẫn chi tiết từng bước** (tiếng Việt): cài Docker, khởi chạy, tạo tài khoản, bảng thiết lập quản trị, nén video hero, bản đồ tự host, VPS + tên miền + HTTPS, backup, xử lý sự cố |
 | [`docs/van-hanh.md`](docs/van-hanh.md) | **Sổ tay vận hành**: cập nhật (update), sao lưu (backup) tự động hằng ngày, khôi phục (restore) trên máy mới — ai cũng làm được |
-| [`docs/man-hinh-quan-tri.md`](docs/man-hinh-quan-tri.md) | **Bộ 14 màn hình trang quản trị** kèm mô tả từng màn — xem trước giao diện trước khi chạy |
+| [`docs/man-hinh-quan-tri.md`](docs/man-hinh-quan-tri.md) | **Bộ màn hình trang quản trị** kèm mô tả từng màn — gồm cả tab SEO, RSS, sitemap, thiết lập email — xem trước giao diện trước khi chạy |
 | [`app/.env.example`](app/.env.example) | File cấu hình tối thiểu (3 biến), có chú thích từng dòng |
 | [`design-demos/`](design-demos/) | Mockup thiết kế HTML + ảnh (phương án 2 — tạp chí, phương án 3 — cinematic đã chọn) |
 | [`docs/screenshots/`](docs/screenshots/) | Ảnh chụp hệ thống chạy thật |
@@ -57,6 +57,8 @@ Mở **http://localhost/admin** → tạo user đầu tiên → cấu hình mọ
 | ![Thiết lập website](docs/screenshots/admin-settings.png) | **Thiết lập website** — tên blog, video hero + poster (3 tab: Màn hình mở trang / Bản đồ / Giới thiệu & chân trang) |
 | ![Thiết lập AI](docs/screenshots/admin-ai-config.png) | **Thiết lập AI** — provider, API key, model, ngưỡng tin cậy **riêng cho từng loại** (duyệt/từ chối/spam), prompt kiểm duyệt có thể sửa |
 | ![Danh sách bài viết](docs/screenshots/admin-post-list.png) | **Danh sách bài viết** — trạng thái từng bài (đã xuất bản / nháp), vào sửa hoặc tạo mới |
+| ![Tab SEO & chia sẻ](docs/screenshots/admin-settings-seo.png) | **Tab SEO & chia sẻ** — điền địa chỉ website + ảnh xem trước, hệ thống tự sinh sitemap/RSS/thẻ chia sẻ |
+| ![Thiết lập email](docs/screenshots/admin-email.png) | **Thiết lập email** — SMTP qua UI, có bình luận mới là nhận thư thông báo kèm link vào admin |
 
 ## Công nghệ
 

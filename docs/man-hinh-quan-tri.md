@@ -9,7 +9,8 @@
 2. [Viết bài & địa điểm](#viết-bài--địa-điểm)
 3. [Bình luận & AI](#bình-luận--ai)
 4. [Thiết lập](#thiết-lập)
-5. [Media, người dùng, thẻ](#media-người-dùng-thẻ)
+5. [SEO, RSS & email thông báo](#seo-rss--email-thông-báo)
+6. [Media, người dùng, thẻ](#media-người-dùng-thẻ)
 
 ---
 
@@ -65,14 +66,31 @@
 
 ### Thiết lập website
 ![Thiết lập website](screenshots/admin-settings.png)
-*Tab **Màn hình mở trang**: video hero (tự chạy hiện dần) + ảnh poster. Tab **Bản đồ**: đường dẫn style. Tab **SEO & chia sẻ**: địa chỉ website (tự sinh sitemap + RSS + ảnh xem trước khi gửi link qua Zalo/Facebook) và ảnh xem trước mặc định. Tab **Giới thiệu & chân trang**: lời giới thiệu, avatar, mạng xã hội. Tên blog cũng đặt ở đây.*
+*4 tab: **Màn hình mở trang** (video hero + poster) · **Bản đồ** (đường dẫn style) · **SEO & chia sẻ** · **Giới thiệu & chân trang**. Tên blog cũng đặt ở đây.*
 
 ### Thiết lập AI
 ![Thiết lập AI](screenshots/admin-ai-config.png)
 *Toàn bộ AI cấu hình qua UI: **Provider** (OpenRouter mặc định), API key, model, bật/tắt tự áp dụng, **bảng ngưỡng tin cậy riêng cho từng loại** (Duyệt ≥80% · Từ chối ≥85% · Spam ≥85% — chỉnh từng dòng), và **prompt kiểm duyệt** sửa được theo ý bạn.*
 
+---
+
+## SEO, RSS & email thông báo
+
+### Tab SEO & chia sẻ
+![Tab SEO & chia sẻ](screenshots/admin-settings-seo.png)
+*Điền **địa chỉ website công khai** (VD `https://blog.example.com`) và **ảnh xem trước mặc định** — xong. Hệ thống tự sinh sitemap, RSS và thẻ chia sẻ cho Zalo/Facebook từ 2 dòng này.*
+
 ### Thiết lập email
-*Mục **Thiết lập email** bên trái: bật "Gửi email khi có bình luận mới", điền máy chủ SMTP (VD smtp.gmail.com), cổng, tên đăng nhập + **mật khẩu ứng dụng**, địa chỉ gửi và email nhận thông báo. Gmail dùng App Password (myaccount.google.com/apppasswords), không dùng mật khẩu đăng nhập. Có bình luận mới là nhận thư ngay, kèm link vào admin để duyệt.*
+![Thiết lập email](screenshots/admin-email.png)
+*7 trường: bật gửi thông báo, máy chủ SMTP (VD smtp.gmail.com), cổng, tên đăng nhập, mật khẩu ứng dụng, địa chỉ gửi, email nhận thông báo. Có bình luận mới là nhận thư ngay, kèm link vào admin để duyệt. (Ảnh chụp từ hệ thống chạy thử — giá trị mẫu là mock, không phải key thật.)*
+
+### RSS feed (/feed.xml)
+![RSS feed](screenshots/feed-xml.png)
+*Chuẩn RSS 2.0, tự sinh từ bài đã xuất bản — người đọc theo dõi qua Feedly/Inoreader, không phụ thuộc mạng xã hội.*
+
+### Sitemap (/sitemap.xml)
+![Sitemap](screenshots/sitemap-xml.png)
+*Sitemap XML tự sinh: trang chủ + mỗi bài đã xuất bản một URL (kèm ngày sửa đổi gần nhất). Nộp link này cho Google Search Console là xong SEO cơ bản.*
 
 ---
 

@@ -1,5 +1,5 @@
 # Dockerfile production cho Next.js (output: standalone)
-FROM node:22-alpine AS base
+FROM node:26-alpine AS base
 RUN apk add --no-cache libc6-compat
 
 FROM base AS deps
